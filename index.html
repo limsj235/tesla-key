@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="쭈삼 — 나의 테슬라 모델 3를 소개합니다.">
+    <title>쭈삼 · 나의 테슬라 모델 3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --text: #f5f5f5;
+            --muted: #a3a3a3;
+            --accent: #3b82f6;
+            --blue-car: #1e3a8a;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 2rem;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .logo span { color: var(--accent); }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover { color: var(--text); }
+
+        /* ── Hero ── */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('images/3.jpg') center 40% / cover no-repeat;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                var(--bg) 0%,
+                rgba(10,10,10,0.4) 50%,
+                rgba(10,10,10,0.2) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 0 1.5rem 5rem;
+            max-width: 720px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--muted);
+            font-weight: 300;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--muted);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-hint::after {
+            content: '';
+            width: 1px;
+            height: 32px;
+            background: linear-gradient(to bottom, var(--muted), transparent);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(6px); }
+        }
+
+        /* ── Sections ── */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-desc {
+            color: var(--muted);
+            font-size: 1.05rem;
+            max-width: 560px;
+            line-height: 1.8;
+        }
+
+        /* ── About ── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .about-img {
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        .about-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .about-img:hover img { transform: scale(1.03); }
+
+        .specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .spec-item {
+            background: var(--surface);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 1.25rem;
+        }
+
+        .spec-item .label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .spec-item .value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* ── Gallery ── */
+        #gallery { max-width: 100%; padding-left: 0; padding-right: 0; }
+
+        #gallery .gallery-header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+        }
+
+        .gallery-item:first-child {
+            grid-column: span 2;
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(59, 130, 246, 0);
+            transition: background 0.3s;
+        }
+
+        .gallery-item:hover::after {
+            background: rgba(59, 130, 246, 0.08);
+        }
+
+        /* ── Features ── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.875rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        footer strong { color: var(--text); }
+
+        /* ── Lightbox ── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(0,0,0,0.92);
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .lightbox-close:hover { opacity: 1; }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.25rem; }
+            nav ul { gap: 1.25rem; }
+            section { padding: 4rem 1.25rem; }
+            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            .gallery-item:first-child { grid-column: span 2; grid-row: span 1; aspect-ratio: 16/9; }
+            .features-grid { grid-template-columns: 1fr; }
+            .specs { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">쭈<span>삼</span></div>
+        <ul>
+            <li><a href="#about">소개</a></li>
+            <li><a href="#gallery">갤러리</a></li>
+            <li><a href="#features">특징</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-badge">My Tesla</div>
+            <h1>나의 테슬라<br>모델 3</h1>
+            <p>일상을 바꾼 전기차, 쭈삼과 함께하는 매일</p>
+        </div>
+        <div class="scroll-hint">SCROLL</div>
+    </header>
+
+    <section id="about">
+        <div class="section-label">About</div>
+        <h2 class="section-title">쭈삼을 소개합니다</h2>
+        <p class="section-desc">
+            딥 블루 컬러의 테슬라 모델 3. 조용하지만 강력한 전기 모터와
+            미니멀한 인테리어, 그리고 오토파일럿까지 — 매일의 출퇴근과
+            주말 드라이브를 특별하게 만들어 주는 나의 동반자입니다.
+        </p>
+
+        <div class="about-grid">
+            <div class="about-img">
+                <img src="images/2.jpg" alt="쭈삼 정면 사진">
+            </div>
+            <div>
+                <div class="specs">
+                    <div class="spec-item">
+                        <div class="label">모델</div>
+                        <div class="value">Tesla Model 3</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="label">컬러</div>
+                        <div class="value">딥 블루 메탈릭</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="label">구동</div>
+                        <div class="value">전기 (EV)</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="label">이름</div>
+                        <div class="value">쭈삼 🚗</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="gallery-header">
+            <div class="section-label">Gallery</div>
+            <h2 class="section-title">쭈삼 사진첩</h2>
+            <p class="section-desc">주차장에서, 거리에서 — 쭈삼의 일상을 담았습니다.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openLightbox('images/3.jpg')">
+                <img src="images/3.jpg" alt="쭈삼 거리 주차">
+            </div>
+            <div class="gallery-item" onclick="openLightbox('images/1.jpg')">
+                <img src="images/1.jpg" alt="쭈삼 위에서 본 모습">
+            </div>
+            <div class="gallery-item" onclick="openLightbox('images/2.jpg')">
+                <img src="images/2.jpg" alt="쭈삼 정면">
+            </div>
+            <div class="gallery-item" onclick="openLightbox('images/5.jpg')">
+                <img src="images/5.jpg" alt="쭈삼 휠 클로즈업">
+            </div>
+            <div class="gallery-item" onclick="openLightbox('images/4.jpg')">
+                <img src="images/4.jpg" alt="쭈삼 측면">
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="section-label">Features</div>
+        <h2 class="section-title">왜 테슬라인가</h2>
+        <p class="section-desc">쭈삼을 선택한 이유, 그리고 매일 느끼는 장점들.</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>즉각적인 가속</h3>
+                <p>전기 모터의 토크는 기다림이 없습니다. 신호등 앞에서도, 고속도로 합류에서도 자신감 넘치는 출발.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔋</div>
+                <h3>경제적인 충전</h3>
+                <p>집에서 밤새 충전하면 아침마다 가득 찬 배터리. 주유소 대신 집으로 — 비용은 절반 이하.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>오토파일럿</h3>
+                <p>고속도로에서 차선 유지, 앞차 추적까지. 긴 거리 운전이 훨씬 편안해집니다.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>앱 원격 제어</h3>
+                <p>에어컨 미리 켜기, 충전 상태 확인, 도어 잠금 — 스마트폰 하나로 모든 것이 가능합니다.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌿</div>
+                <h3>제로 배출</h3>
+                <p>배기가스 없는 깨끗한 드라이브. 도시도, 자연이도 — 마음 편히 달릴 수 있습니다.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎵</div>
+                <h3>미니멀 인테리어</h3>
+                <p>15인치 터치스크린 하나로 모든 것을 제어. 깔끔한 대시보드, 넓은 실내 공간.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Made with ❤️ for <strong>쭈삼</strong> · Tesla Model 3</p>
+    </footer>
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightbox-img" src="" alt="쭈삼 사진 확대">
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>
