@@ -1,2 +1,4 @@
-/.well-known/appspecific/*
+/.well-known/appspecific/com.tesla.3p.public-key.pem
   Content-Type: text/plain; charset=utf-8
+  Content-Disposition: inline
+  X-Content-Type-Options: nosniff
